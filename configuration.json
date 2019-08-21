@@ -1,0 +1,148 @@
+{
+  "ApplicationName": "CandidateManifesto",
+  "DisplayName": "Candidate Manifesto",
+  "Description": "An Application to validate manifesto of a candidate",
+  "ApplicationRoles": [
+    {
+      "Name": "Candidate",
+      "Description": "Person who is filling the manifesto"
+    },
+    {
+      "Name": "Inspector",
+      "Description": "Person who is inspecting the manifesto"
+    }
+  ],
+  "Workflows": [
+    {
+      "Name": "CandidateManifesto",
+      "DisplayName": "Request Response",
+      "Description": "A simple workflow to validate a manifesto",
+      "Initiators": [ "Candidate" ],
+      "StartState": "Request",
+      "Properties": [
+        {
+          "Name": "State",
+          "DisplayName": "State",
+          "Description": "Holds the state of the contract.",
+          "Type": {
+            "Name": "state"
+          }
+        },
+        {
+          "Name": "Candidate",
+          "DisplayName": "Candidate",
+          "Description": "A person who is nominating himself",
+          "Type": {
+            "Name": "Candidate"
+          }
+        },
+        {
+          "Name": "Inspector",
+          "DisplayName": "Inspector",
+          "Description": "A person from the election commission office",
+          "Type": {
+            "Name": "Inspector"
+          }
+        },
+        {
+          "Name": "RequestMessage",
+          "DisplayName": "Request Message",
+          "Description": "A request message.",
+          "Type": {
+            "Name": "string"
+          }
+        },
+        {
+          "Name": "ResponseMessage",
+          "DisplayName": "Response Message",
+          "Description": "A response message.",
+          "Type": {
+            "Name": "string"
+          }
+        }
+      ],
+      "Constructor": {
+        "Parameters": [
+          {
+            "Name": "message",
+            "Description": "...",
+            "DisplayName": "Request Message",
+            "Type": {
+              "Name": "string"
+            }
+          }
+        ]
+      },
+      "Functions": [
+        {
+          "Name": "SendRequest",
+          "DisplayName": "Request",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "requestMessage",
+              "Description": "...",
+              "DisplayName": "Request Message",
+              "Type": {
+                "Name": "string"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "SendResponse",
+          "DisplayName": "Response",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "responseMessage",
+              "Description": "...",
+              "DisplayName": "Response Message",
+              "Type": {
+                "Name": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "States": [
+        {
+          "Name": "Request",
+          "DisplayName": "Request",
+          "Description": "...",
+          "PercentComplete": 50,
+          "Value": 0,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": ["Responder"],
+              "AllowedInstanceRoles": [],
+              "Description": "...",
+              "Function": "SendResponse",
+              "NextStates": [ "Respond" ],
+              "DisplayName": "Send Response"
+            }
+          ]
+        },
+        {
+          "Name": "Respond",
+          "DisplayName": "Respond",
+          "Description": "...",
+          "PercentComplete": 90,
+          "Value": 1,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": ["Requestor"],
+              "Description": "...",
+              "Function": "SendRequest",
+              "NextStates": [ "Request" ],
+              "DisplayName": "Send Request"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
